@@ -21,7 +21,9 @@ class Musica{
 			clip = AudioSystem.getClip();
 			clip.open(audioIS);
 			clip.start();
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			if(nombre == "./musica/BlueMonday.wav"){
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
+			}
 
 		}catch(Exception e){
 			System.out.println("Error al reproducir la cancion.");
