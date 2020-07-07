@@ -146,14 +146,14 @@ class VentanaPrincipal extends JFrame implements ActionListener{
 
 		if(event.getSource() == this.btnSolitario)
 		{
-			QuizSolo qS = new QuizSolo(usuario);
 			dispose();
 			ms.StopPlaying();
+			QuizSolo qS = new QuizSolo(usuario);
 		}
 
 		if(event.getSource() == this.btnMulti)
 		{
-			QuizMulti qM = new QuizMulti(usuario);
+			//QuizMulti qM = new QuizMulti(usuario);
 			dispose();
 			ms.StopPlaying();
 		}
