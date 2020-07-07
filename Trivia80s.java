@@ -105,7 +105,7 @@ class Trivia80s extends JFrame implements ActionListener{
 		txtUsuario.setBounds(100,240,300,40);
 		txtUsuario.setOpaque(true);
 		txtUsuario.setEditable(true);
-		txtUsuario.setFont(new Font("Pixeled Regular",0,15));
+		txtUsuario.setFont(new Font("Arial",0,25));
 		txtUsuario.setBackground(Color.white);
 		txtUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		
