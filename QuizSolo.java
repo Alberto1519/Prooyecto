@@ -15,10 +15,15 @@ class QuizSolo extends JFrame implements ActionListener{
 	private ImageIcon iTitulo;
 	private JLabel jlTitulo;
 
+	private JLabel jlPregunta;
+
+	private JTextField txtRespuesta;
+
 	private ImageIcon iAvanzar;
 	private JButton btnAvanzar;
 
 	private String usuario;
+	private String respuesta;
 
 	public QuizSolo(String usuario){
 
@@ -39,13 +44,13 @@ class QuizSolo extends JFrame implements ActionListener{
 
 		colocarFondo();
 		colocarEtiquetas();
-		//colocarBotones();
+		colocarBotones();
 	}
 
 	private void colocarFondo(){
 
 		panel = new JLayeredPane();
-		//panel.setLayout(null);
+		panel.setLayout(null);
 		this.getContentPane().add(panel);
 
 		//Imagen de fondo
@@ -76,19 +81,34 @@ class QuizSolo extends JFrame implements ActionListener{
 		}
 
 		//Pregunta
-		 
+		jlPregunta = new JLabel("La re concha de tu hermana");
+		jlPregunta.setBounds(55,200,450,30);
+		jlPregunta.setOpaque(false);
+		jlPregunta.setForeground(Color.WHITE);
+		jlPregunta.setFont(new Font("Berlin Sans FB",0,20));
+		jlPregunta.setHorizontalAlignment(SwingConstants.CENTER); 
+
+		//Imagen de la pregunta
+		txtRespuesta = new JTextField();
+		txtRespuesta.setBounds(80,720,400,50);
+		txtRespuesta.setBackground(Color.WHITE);
+		txtRespuesta.setFont(new Font("Berlin Sans FB",0,30));
+		txtRespuesta.setHorizontalAlignment(SwingConstants.CENTER); 
 
 		//Agregar al panel
 		panel.add(jlTitulo,new Integer(2));
+		panel.add(jlPregunta,new Integer(3));
+		panel.add(txtRespuesta,new Integer(4));
+		//Falta JLbael de la imagen de la pregunta
 	}
 
 	private void colocarBotones(){
 
 		//Boton de ventana solitario
 		try{
-			iAvanzar = new ImageIcon("./imagenes/.png");
+			iAvanzar = new ImageIcon("./imagenes/ready.png");
 			btnAvanzar = new JButton();
-			btnAvanzar.setBounds(140,255,254,180); //(x, y, w, h)
+			btnAvanzar.setBounds(157,800,250,100); //(x, y, w, h)
 			btnAvanzar.setIcon(new ImageIcon(iAvanzar.getImage().getScaledInstance(btnAvanzar.getWidth(),btnAvanzar.getHeight(),Image.SCALE_SMOOTH)));
 			btnAvanzar.setOpaque(false);
 			btnAvanzar.setContentAreaFilled(false);
@@ -98,7 +118,7 @@ class QuizSolo extends JFrame implements ActionListener{
 		}
 
 		//Agregar boton al panel
-		panel.add(btnAvanzar,new Integer(4)); 
+		panel.add(btnAvanzar,new Integer(6)); 
 
 		//Escuchar las acciones del boton de inicio
 		btnAvanzar.addActionListener(this);
@@ -110,7 +130,7 @@ class QuizSolo extends JFrame implements ActionListener{
 
 		if(event.getSource() == this.btnAvanzar)
 		{
-			
+			respuesta = txtRespuesta.getText();
 		}
 	}
 }
