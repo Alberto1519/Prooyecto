@@ -153,6 +153,7 @@ class Trivia80s extends JFrame implements ActionListener{
 			jlTitulo.setVisible(false);
 			txtUsuario.setVisible(false);
 			btnAvanzar.setVisible(false);
+			ms.StopPlaying();
 			conectar();	
 			//sleep();
 			this.setVisible(false);

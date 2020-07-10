@@ -6,6 +6,7 @@ import java.awt.image.*;
 import javax.imageio.*;
 import java.awt.event.*;
 public class Quiz extends JFrame implements ActionListener{
+    
     //Elementos ventana
       JPanel panel;
       JLabel jlpreguntas;
@@ -15,7 +16,7 @@ public class Quiz extends JFrame implements ActionListener{
       String respuestaIngresada;
       int cantidadPreguntas=14;
       int preguntaRandom[] = new int [cantidadPreguntas+1];//lista de numeros random 
- 	  int contadorPregunta=0;
+ 	    int contadorPregunta=0;
 
 
       public Quiz(){
@@ -62,15 +63,15 @@ public class Quiz extends JFrame implements ActionListener{
             }
           }
         }
-        for(k=0; k<cantidadPreguntas; k++)
-        {
-          System.out.println(preguntaRandom[k]);
-        }
+        
+        for(String p:contenido){
+          
+          renglon=renglon+1;
 
-         for(String p:contenido){//aqui es donde se desliega la pregunta del txt segun su posicion en el arrylist
-        renglon=renglon+1;
         if(renglon==preguntaRandom[2]){
+
           jlpreguntas.setText(p); 
+          
         }
       }
     }

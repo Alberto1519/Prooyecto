@@ -4,6 +4,7 @@ import java.awt.image.*;
 import java.io.*;
 import javax.imageio.*;
 import java.awt.event.*;
+import java.util.*;
 
 class QuizSolo extends JFrame implements ActionListener{
 
@@ -25,6 +26,12 @@ class QuizSolo extends JFrame implements ActionListener{
 	private String usuario;
 	private String respuesta;
 
+	private int cantidadPreguntas=14;
+    private int preguntaRandom[] = new int [cantidadPreguntas+1]; // Lista de numeros random 
+ 	private int contadorPregunta=0;
+ 	private int renglon=0; //Contador de renglones
+ 	private ArrayList<String>contenido = new ArrayList<String>();
+
 	public QuizSolo(String usuario){
 
 		this.usuario = usuario;
@@ -45,6 +52,7 @@ class QuizSolo extends JFrame implements ActionListener{
 		colocarFondo();
 		colocarEtiquetas();
 		colocarBotones();
+		crearPreguntas();
 	}
 
 	private void colocarFondo(){
@@ -124,6 +132,53 @@ class QuizSolo extends JFrame implements ActionListener{
 		btnAvanzar.addActionListener(this);
 	}
 
+	private void crearPreguntas(){
+
+		//Seleccion de la pregunta
+     	contenido = Archivo.leerTodo("preguntas.txt");
+      	ArrayList<String>respuestas = new ArrayList<String>();
+      	respuestas = Archivo.leerTodo("respuestas.txt");
+      
+      	int i=0;
+     	int k=0;
+            
+       for(i=0; i<cantidadPreguntas; i++) 
+        {
+          preguntaRandom[i] = (int)(Math.random()*cantidadPreguntas);
+          for(int j=0; j<i; j++)
+          {
+            if(preguntaRandom[i]==preguntaRandom[j])
+            {
+              i--;
+            }
+          }
+        }
+
+        for(String p:contenido){
+
+        renglon=renglon+1;
+
+        if(renglon==preguntaRandom[2]){
+
+          jlPregunta.setText(p);
+
+        }
+      }
+    }
+
+    private void cambiarPreguntas(){
+
+    	for(String p:contenido){
+
+        renglon=renglon+1;
+
+        if(renglon==preguntaRandom[2]){
+
+          jlPregunta.setText(p);
+
+        }
+      }
+    }
 
 	//Escuchar las opciones
 	public void actionPerformed(ActionEvent event){
@@ -131,6 +186,9 @@ class QuizSolo extends JFrame implements ActionListener{
 		if(event.getSource() == this.btnAvanzar)
 		{
 			respuesta = txtRespuesta.getText();
+			contadorPregunta = contadorPregunta+1;
+			cambiarPreguntas();
+			txtRespuesta.setText("");
 		}
 	}
 }
