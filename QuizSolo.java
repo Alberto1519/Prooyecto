@@ -43,7 +43,7 @@ class QuizSolo extends JFrame implements ActionListener{
 		componentes();//Agregar todos los componentes a la ventana
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setResizable(false); //Evitar que se puede hacer mas pequena la ventana
+		this.setResizable(true); //Evitar que se puede hacer mas pequena la ventana
 		this.setVisible(true);
 	}
 
@@ -89,7 +89,7 @@ class QuizSolo extends JFrame implements ActionListener{
 		}
 
 		//Pregunta
-		jlPregunta = new JLabel("La re concha de tu hermana");
+		jlPregunta = new JLabel("Presione READY para iniciar");
 		jlPregunta.setBounds(55,200,450,30);
 		jlPregunta.setOpaque(false);
 		jlPregunta.setForeground(Color.WHITE);
@@ -98,7 +98,7 @@ class QuizSolo extends JFrame implements ActionListener{
 
 		//Imagen de la pregunta
 		txtRespuesta = new JTextField();
-		txtRespuesta.setBounds(80,720,400,50);
+		txtRespuesta.setBounds(80,500,400,50);
 		txtRespuesta.setBackground(Color.WHITE);
 		txtRespuesta.setFont(new Font("Berlin Sans FB",0,30));
 		txtRespuesta.setHorizontalAlignment(SwingConstants.CENTER); 
@@ -116,7 +116,7 @@ class QuizSolo extends JFrame implements ActionListener{
 		try{
 			iAvanzar = new ImageIcon("./imagenes/ready.png");
 			btnAvanzar = new JButton();
-			btnAvanzar.setBounds(157,800,250,100); //(x, y, w, h)
+			btnAvanzar.setBounds(157,600,250,100); //(x, y, w, h)
 			btnAvanzar.setIcon(new ImageIcon(iAvanzar.getImage().getScaledInstance(btnAvanzar.getWidth(),btnAvanzar.getHeight(),Image.SCALE_SMOOTH)));
 			btnAvanzar.setOpaque(false);
 			btnAvanzar.setContentAreaFilled(false);
@@ -153,18 +153,7 @@ class QuizSolo extends JFrame implements ActionListener{
             }
           }
         }
-
-        for(String p:contenido){
-
-        renglon=renglon+1;
-
-        if(renglon==preguntaRandom[2]){
-
-          jlPregunta.setText(p);
-
-        }
       }
-    }
 
     private void cambiarPreguntas(){
 
@@ -172,23 +161,31 @@ class QuizSolo extends JFrame implements ActionListener{
 
         renglon=renglon+1;
 
-        if(renglon==preguntaRandom[2]){
+        if(renglon==preguntaRandom[3]){
 
           jlPregunta.setText(p);
 
-        }
+       }
       }
     }
 
 	//Escuchar las opciones
 	public void actionPerformed(ActionEvent event){
 
-		if(event.getSource() == this.btnAvanzar)
-		{
-			respuesta = txtRespuesta.getText();
-			contadorPregunta = contadorPregunta+1;
-			cambiarPreguntas();
-			txtRespuesta.setText("");
-		}
+			ArrayList<String>contenido = new ArrayList<String>();
+      contenido = Archivo.leerTodo("preguntas.txt");
+      ArrayList<String>respuestas = new ArrayList<String>();
+      respuestas = Archivo.leerTodo("respuestas.txt");
+    	int renglon=0;
+	    if(event.getSource() == this.btnAvanzar){//aqui pensaba acomdar el cambio de la etiqueta donde se muestra a pregunta en la ventana
+	    	contadorPregunta = contadorPregunta+1;
+	    	System.out.println(preguntaRandom[contadorPregunta]);//aqui segun yo era para que cada vez que se presiona vaya avanzando el arraylist
+	    }  
+	     for(String p:contenido){//aqui es donde se desliega la pregunta del txt segun su posicion en el arrylist
+        renglon=renglon+1;
+        if(renglon==preguntaRandom[preguntaRandom[contadorPregunta]]){
+          jlPregunta.setText(p); 
+        }
+      }        
 	}
 }
