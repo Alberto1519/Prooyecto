@@ -16,6 +16,7 @@ class QuizSolo extends JFrame implements ActionListener{
 	private ImageIcon iTitulo;
 	private JLabel jlTitulo;
 
+	private ImageIcon iPregunta;
 	private JLabel jlPregunta;
 
 	private JTextField txtRespuesta;
@@ -25,19 +26,22 @@ class QuizSolo extends JFrame implements ActionListener{
 
 	private String usuario;
 	private String respuesta;
+	private int puntos;
 
 	private int cantidadPreguntas=14;
     private int preguntaRandom[] = new int [cantidadPreguntas+1]; // Lista de numeros random 
+    private int respuestaRandom[] = new int [cantidadPreguntas+1];
  	private int contadorPregunta=0;
  	private int renglon=0; //Contador de renglones
  	private ArrayList<String>contenido = new ArrayList<String>();
+ 	private ArrayList<String>respuestas = new ArrayList<String>();
 
 	public QuizSolo(String usuario){
 
 		this.usuario = usuario;
 
 		this.setTitle("QUIZ SOLO");
-		this.setSize(563,1000); //Tamano de la ventana (x, y)
+		this.setSize(563,750); //Tamano de la ventana (x, y)
 		this.setLocationRelativeTo(null); //Ventana en el centro
 
 		componentes();//Agregar todos los componentes a la ventana
@@ -65,7 +69,7 @@ class QuizSolo extends JFrame implements ActionListener{
 		try{
 			iFondo = new ImageIcon ("./imagenes/wallpaperSolo.png");
 			jlFondo = new JLabel();
-			jlFondo.setBounds(0,0,563,1000); //(x, y, w, h)
+			jlFondo.setBounds(0,0,563,750); //(x, y, w, h)
 			jlFondo.setIcon(new ImageIcon(iFondo.getImage().getScaledInstance(jlFondo.getWidth(),jlFondo.getHeight(),Image.SCALE_SMOOTH)));
 			jlFondo.setHorizontalAlignment(SwingConstants.CENTER);
 		}catch(Exception e){
@@ -81,7 +85,7 @@ class QuizSolo extends JFrame implements ActionListener{
 		try{
 			iTitulo = new ImageIcon ("./imagenes/TituloSolo.png");
 			jlTitulo = new JLabel();
-			jlTitulo.setBounds(181,20,200,160); //(x, y, w, h)
+			jlTitulo.setBounds(201,20,160,120); //(x, y, w, h)
 			jlTitulo.setIcon(new ImageIcon(iTitulo.getImage().getScaledInstance(jlTitulo.getWidth(),jlTitulo.getHeight(),Image.SCALE_SMOOTH)));
 			jlTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		}catch(Exception e){
@@ -89,16 +93,19 @@ class QuizSolo extends JFrame implements ActionListener{
 		}
 
 		//Pregunta
-		jlPregunta = new JLabel("Presione READY para iniciar");
-		jlPregunta.setBounds(55,200,450,30);
-		jlPregunta.setOpaque(false);
-		jlPregunta.setForeground(Color.WHITE);
-		jlPregunta.setFont(new Font("Berlin Sans FB",0,20));
-		jlPregunta.setHorizontalAlignment(SwingConstants.CENTER); 
+		try{
+			iPregunta = new ImageIcon ("./imagenes/Preguntas/instrucciones.png");
+			jlPregunta = new JLabel();
+			jlPregunta.setBounds(55,165,450,365); //(x, y, w, h)
+			jlPregunta.setIcon(new ImageIcon(iPregunta.getImage().getScaledInstance(jlPregunta.getWidth(),jlPregunta.getHeight(),Image.SCALE_SMOOTH)));
+			jlPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+		}catch(Exception e){
+			System.out.println("Error al cargar imagen.");
+		}
 
-		//Imagen de la pregunta
+		//Area para responder
 		txtRespuesta = new JTextField();
-		txtRespuesta.setBounds(80,500,400,50);
+		txtRespuesta.setBounds(80,550,400,50);
 		txtRespuesta.setBackground(Color.WHITE);
 		txtRespuesta.setFont(new Font("Berlin Sans FB",0,30));
 		txtRespuesta.setHorizontalAlignment(SwingConstants.CENTER); 
@@ -107,7 +114,6 @@ class QuizSolo extends JFrame implements ActionListener{
 		panel.add(jlTitulo,new Integer(2));
 		panel.add(jlPregunta,new Integer(3));
 		panel.add(txtRespuesta,new Integer(4));
-		//Falta JLbael de la imagen de la pregunta
 	}
 
 	private void colocarBotones(){
@@ -136,13 +142,12 @@ class QuizSolo extends JFrame implements ActionListener{
 
 		//Seleccion de la pregunta
      	contenido = Archivo.leerTodo("preguntas.txt");
-      	ArrayList<String>respuestas = new ArrayList<String>();
       	respuestas = Archivo.leerTodo("respuestas.txt");
       
       	int i=0;
      	int k=0;
             
-       for(i=0; i<cantidadPreguntas; i++) 
+       for(i=0; i < cantidadPreguntas; i++) 
         {
           preguntaRandom[i] = (int)(Math.random()*cantidadPreguntas);
           for(int j=0; j<i; j++)
@@ -153,39 +158,65 @@ class QuizSolo extends JFrame implements ActionListener{
             }
           }
         }
+
+        //REVISAR
+        respuestaRandom = preguntaRandom;
       }
-
-    private void cambiarPreguntas(){
-
-    	for(String p:contenido){
-
-        renglon=renglon+1;
-
-        if(renglon==preguntaRandom[3]){
-
-          jlPregunta.setText(p);
-
-       }
-      }
-    }
 
 	//Escuchar las opciones
 	public void actionPerformed(ActionEvent event){
 
-			ArrayList<String>contenido = new ArrayList<String>();
-      contenido = Archivo.leerTodo("preguntas.txt");
-      ArrayList<String>respuestas = new ArrayList<String>();
-      respuestas = Archivo.leerTodo("respuestas.txt");
+		ArrayList<String>contenido = new ArrayList<String>();
+    	contenido = Archivo.leerTodo("preguntas.txt");
+      	ArrayList<String>respuestas = new ArrayList<String>();
+      	respuestas = Archivo.leerTodo("respuestas.txt");
     	int renglon=0;
-	    if(event.getSource() == this.btnAvanzar){//aqui pensaba acomdar el cambio de la etiqueta donde se muestra a pregunta en la ventana
+
+    	//Revisar las respuestas
+	    if(event.getSource() == this.btnAvanzar){
+	    	
 	    	contadorPregunta = contadorPregunta+1;
-	    	System.out.println(preguntaRandom[contadorPregunta]);//aqui segun yo era para que cada vez que se presiona vaya avanzando el arraylist
-	    }  
-	     for(String p:contenido){//aqui es donde se desliega la pregunta del txt segun su posicion en el arrylist
-        renglon=renglon+1;
-        if(renglon==preguntaRandom[preguntaRandom[contadorPregunta]]){
-          jlPregunta.setText(p); 
-        }
-      }        
+	    	
+	    	
+	    	if(contadorPregunta < 14){
+
+	    		//REVISAR PARA PODER COMPARAR LAS RESPUESTAS
+	    		for(String q:contenido){
+
+       				if(renglon==respuestaRandom[respuestaRandom[contadorPregunta]]){
+            		
+	    				if(txtRespuesta.getText() == q){
+
+	    					puntos = puntos + 1;
+
+	    				}
+            		
+					} 
+        		}       
+
+	    	}else{
+	    			VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos);
+	    			dispose();
+	    		}
+
+	    	txtRespuesta.setText("");	
+	    }
+   
+      	//Cambiar la preguntas
+      	for(String p:contenido){
+        		
+        	renglon=renglon+1;
+
+       		if(renglon==preguntaRandom[preguntaRandom[contadorPregunta]]){
+            	
+            	try{
+					iPregunta = new ImageIcon ("./imagenes/Preguntas/"+p);
+					jlPregunta.setIcon(new ImageIcon(iPregunta.getImage().getScaledInstance(jlPregunta.getWidth(),jlPregunta.getHeight(),Image.SCALE_SMOOTH)));
+					jlPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+				}catch(Exception e){
+					System.out.println("Error al cargar imagen.");
+				} 
+        	}        
+		}
 	}
 }
