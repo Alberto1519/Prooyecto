@@ -8,29 +8,32 @@ import java.awt.event.*;
 
 class VentanaPuntaje extends JFrame implements ActionListener{
 
-	JPanel panel;
+	private JLayeredPane panel;
+
+	private JLabel jlFondo;
+	private ImageIcon iFondo;
 	
 	//Titulos utilizados
-	JLabel jlTitulo_1;
-	ImageIcon iTitulo_1;
+	private JLabel jlTitulo_1;
+	private ImageIcon iTitulo_1;
 
 	//Botones
-	ImageIcon iRestart;
-	JButton btnReiniciar;
-	ImageIcon iMenu;
-	JButton btnMenu;
+	private ImageIcon iRestart;
+	private JButton btnReiniciar;
+	private ImageIcon iMenu;
+	private JButton btnMenu;
 
 	//Area del puntaje
-	JTextArea txaPuntajesTotales;
-	ArrayList <String> puntajes;
-	JScrollPane scbar;
+	private JTextArea txaPuntajesTotales;
+	private ArrayList <String> puntajes;
+	private JScrollPane scbar;
 
-	Archivo arch = new Archivo();
+	private Archivo arch = new Archivo();
 
-	int puntos;
-	String usuario;
+	private int puntos;
+	private String usuario;
 
-	String puntosSt;
+	private String puntosSt;
 
 	public VentanaPuntaje(String usuario,int puntos)
 	{
@@ -42,7 +45,8 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 		puntajes = new ArrayList<String>();
 
 		this.setTitle("SCORES");
-		this.setBounds(150,100,480, 545);
+		this.setSize(500,500);
+		this.setLocationRelativeTo(null);
 
 		componentes();
 
@@ -66,9 +70,22 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 
 	private void colocarFondo(){
 
-		panel = new JPanel();
+		panel = new JLayeredPane();
 		panel.setLayout(null);
 		this.getContentPane().add(panel);
+
+		//Imagen de fondo
+		try{
+			iFondo = new ImageIcon ("./imagenes/wallpaperPuntaje.png");
+			jlFondo = new JLabel();
+			jlFondo.setBounds(0,0,500,500); //(x, y, w, h)
+			jlFondo.setIcon(new ImageIcon(iFondo.getImage().getScaledInstance(jlFondo.getWidth(),jlFondo.getHeight(),Image.SCALE_SMOOTH)));
+			jlFondo.setHorizontalAlignment(SwingConstants.CENTER);
+		}catch(Exception e){
+			System.out.println("Error al cargar imagen de fondo.");
+		}
+
+		panel.add(jlFondo,new Integer(1));
 	}
 
  	private void colocarEtiquetas(){
@@ -77,7 +94,7 @@ class VentanaPuntaje extends JFrame implements ActionListener{
  		try{
 			iTitulo_1 = new ImageIcon ("./imagenes/titulo_2.png");
 			jlTitulo_1 = new JLabel();
-			jlTitulo_1.setBounds(50, 10, 380, 80); //(x, y, w, h)
+			jlTitulo_1.setBounds(60, 10, 380, 80); //(x, y, w, h)
 			jlTitulo_1.setIcon(new ImageIcon(iTitulo_1.getImage().getScaledInstance(jlTitulo_1.getWidth(),jlTitulo_1.getHeight(),Image.SCALE_SMOOTH)));
 			jlTitulo_1.setHorizontalAlignment(SwingConstants.CENTER);
 		}catch(Exception e){
@@ -85,7 +102,7 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 		} 
 
 		//Agregar al panel
-		panel.add(jlTitulo_1);
+		panel.add(jlTitulo_1,new Integer(2));
 
  	}
 
@@ -95,7 +112,7 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 		try{
 			iRestart = new ImageIcon("./imagenes/restart.png");
 			btnReiniciar = new JButton();
-			btnReiniciar.setBounds(120, 450, 100, 40); //(x, y, w, h)
+			btnReiniciar.setBounds(130, 420, 100, 40); //(x, y, w, h)
 			btnReiniciar.setOpaque(true);
 			btnReiniciar.setBackground(Color.BLUE);
 			btnReiniciar.setIcon(new ImageIcon(iRestart.getImage().getScaledInstance(btnReiniciar.getWidth(),btnReiniciar.getHeight(),Image.SCALE_SMOOTH)));
@@ -107,7 +124,7 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 		try{
 			iMenu = new ImageIcon("./imagenes/menu.png");
 			btnMenu = new JButton();
-			btnMenu.setBounds(260, 450, 100, 40); //(x, y, w, h)
+			btnMenu.setBounds(270, 420, 100, 40); //(x, y, w, h)
 			btnMenu.setOpaque(true);
 			btnMenu.setBackground(Color.WHITE);
 			btnMenu.setIcon(new ImageIcon(iMenu.getImage().getScaledInstance(btnMenu.getWidth(),btnMenu.getHeight(),Image.SCALE_SMOOTH)));
@@ -116,15 +133,15 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 		}
 		
 		//Agregar botones al panel
-		panel.add(btnReiniciar);
-		panel.add(btnMenu);
+		panel.add(btnReiniciar,new Integer(4));
+		panel.add(btnMenu,new Integer(5));
  	}
 
  	private void colocarAreas(){
 
  		//Mostras los puntajes obtenidos
  		txaPuntajesTotales = new JTextArea(); //Los puntajes
-		txaPuntajesTotales.setBounds(50,90,380,300);
+		txaPuntajesTotales.setBounds(50,105,400,300);
 		
 		try{
 			arch.guardarPuntos(usuario,puntosSt);
@@ -141,11 +158,11 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 		//Scrollbar
 		scbar = new JScrollPane();
 		scbar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		scbar.setBounds(50,90,380,300);
+		scbar.setBounds(50,105,400,300);
 		scbar.getViewport().add(txaPuntajesTotales);
 
 		//Agregar al panel
-		panel.add(scbar);
+		panel.add(scbar,new Integer(3));
  	}
 
 

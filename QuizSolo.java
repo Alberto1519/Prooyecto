@@ -46,7 +46,7 @@ class QuizSolo extends JFrame implements ActionListener{
 		componentes();//Agregar todos los componentes a la ventana
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setResizable(true); //Evitar que se puede hacer mas pequena la ventana
+		this.setResizable(false); //Evitar que se puede hacer mas pequena la ventana
 		this.setVisible(true);
 	}
 
