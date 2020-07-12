@@ -155,38 +155,66 @@ class QuizSolo extends JFrame implements ActionListener{
        	respuestaRandom = preguntaRandom; 
     }
 
+    private void compararRespuestas(String respuesta){
+
+    	ArrayList<String>contenido = new ArrayList<String>();
+    	contenido = Archivo.leerTodo("preguntas.txt");
+    	ArrayList<String>respuestas = new ArrayList<String>();
+      	respuestas = Archivo.leerTodo("respuestas.txt");
+      	
+    	int renglon=0;
+    	int renglonR = 0;
+
+    	for(String p:contenido){
+
+    		renglon=renglon+1;
+
+    		if(renglon==preguntaRandom[preguntaRandom[contadorP]]){
+
+    			try{
+						iPregunta = new ImageIcon ("./imagenes/Preguntas/"+p);
+						jlPregunta.setIcon(new ImageIcon(iPregunta.getImage().getScaledInstance(jlPregunta.getWidth(),jlPregunta.getHeight(),Image.SCALE_SMOOTH)));
+						jlPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+					}catch(Exception e){
+						System.out.println("Error al cargar imagen.");
+				}	
+    		}
+    	}
+
+    	if(contadorP>0){
+    		for(String q:respuestas){
+
+    		renglonR = renglonR + 1;
+
+    		if(renglonR==respuestaRandom[respuestaRandom[contadorP-1]]){
+    			System.out.println("Pregunta: "+q);
+				System.out.println("Respuesta: "+respuesta);
+
+				if(respuesta.equalsIgnoreCase(q)){
+
+	    			puntos = puntos + 1;
+	    			System.out.println("Son iguales");
+	    		}
+    		}
+    	}
+    	}
+    }
+
 	//Escuchar las opciones
 	public void actionPerformed(ActionEvent event){
 
-		ArrayList<String>contenido = new ArrayList<String>();
-    	contenido = Archivo.leerTodo("preguntas.txt");
-      	
-    	int renglon=0;
-    	String respuesta = txtRespuesta.getText().toUpperCase();
-    	
 		if(event.getSource() == this.btnAvanzar){
 
-			if(contadorP >= 10){
+			String respuesta = txtRespuesta.getText().toUpperCase();
+
+				if(contadorP >= 10){
 	    		
-	    		VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos);
-	    		dispose();
-	    	}
+	    			VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos);
+	    			dispose();
+	    		}
 
-	    	for(String p:contenido){
-        		
-        		renglon=renglon+1;
-
-       			if(renglon == preguntaRandom[preguntaRandom[contadorP]]){
-		            	try{
-							iPregunta = new ImageIcon ("./imagenes/Preguntas/"+p);
-							jlPregunta.setIcon(new ImageIcon(iPregunta.getImage().getScaledInstance(jlPregunta.getWidth(),jlPregunta.getHeight(),Image.SCALE_SMOOTH)));
-							jlPregunta.setHorizontalAlignment(SwingConstants.CENTER);
-						}catch(Exception e){
-						System.out.println("Error al cargar imagen.");
-					}	
-        		}
-        	}
-
+	    	compararRespuestas(respuesta);
+	
         	contadorP = contadorP+1;
 	    	txtRespuesta.setText("");
 		}
