@@ -30,9 +30,8 @@ class QuizSolo extends JFrame implements ActionListener{
 
 	private int cantidadPreguntas=14;
     private int preguntaRandom[] = new int [cantidadPreguntas+1]; // Lista de numeros random 
-    private int respuestaRandom[] = new int [cantidadPreguntas+1];
+    private int respuestaRandom[] = new int [cantidadPreguntas+1]; // Lista de numeros random 
  	private int contadorPregunta=0;
- 	private int renglon=0; //Contador de renglones
  	private ArrayList<String>contenido = new ArrayList<String>();
  	private ArrayList<String>respuestas = new ArrayList<String>();
 
@@ -56,7 +55,6 @@ class QuizSolo extends JFrame implements ActionListener{
 		colocarFondo();
 		colocarEtiquetas();
 		colocarBotones();
-		crearPreguntas();
 	}
 
 	private void colocarFondo(){
@@ -159,7 +157,6 @@ class QuizSolo extends JFrame implements ActionListener{
           }
         }
 
-        //REVISAR
         respuestaRandom = preguntaRandom;
       }
 
@@ -170,54 +167,62 @@ class QuizSolo extends JFrame implements ActionListener{
     	contenido = Archivo.leerTodo("preguntas.txt");
       	ArrayList<String>respuestas = new ArrayList<String>();
       	respuestas = Archivo.leerTodo("respuestas.txt");
-    	int renglon=0;
-    	int renglonR=0;//renglon excluisvo para las respuestas, ya que no servia bien el otro dentro del if de repuestas
+    	int renglon = 0;
+    	int renglonR = 0;//renglon excluisvo para las respuestas, ya que no servia bien el otro dentro del if de repuestas
+    	String respuesta = txtRespuesta.getText().toUpperCase();
 
-    	//Cambiar la preguntas
-      	for(String p:contenido){
+    	crearPreguntas();
+
+    	if(contadorPregunta > 13){
+	    		
+	    		VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos);
+	    		dispose();
+	    	}
+
+    	//Revisar las respuestas
+	    if(event.getSource() == this.btnAvanzar){
+
+	    	//Cambiar la preguntas
+      		for(String p:contenido){
         		
-        	renglon=renglon+1;
+        		renglon=renglon+1;
 
        		if(renglon==preguntaRandom[preguntaRandom[contadorPregunta]]){
             	
-            	try{
-					iPregunta = new ImageIcon ("./imagenes/Preguntas/"+p);
-					jlPregunta.setIcon(new ImageIcon(iPregunta.getImage().getScaledInstance(jlPregunta.getWidth(),jlPregunta.getHeight(),Image.SCALE_SMOOTH)));
-					jlPregunta.setHorizontalAlignment(SwingConstants.CENTER);
-				}catch(Exception e){
-					System.out.println("Error al cargar imagen.");
-				} 
+	            	try{
+						iPregunta = new ImageIcon ("./imagenes/Preguntas/"+p);
+						jlPregunta.setIcon(new ImageIcon(iPregunta.getImage().getScaledInstance(jlPregunta.getWidth(),jlPregunta.getHeight(),Image.SCALE_SMOOTH)));
+						jlPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+					}catch(Exception e){
+						System.out.println("Error al cargar imagen.");
+				}	
         	}
-        	}      
-    	//Revisar las respuestas
-	    if(event.getSource() == this.btnAvanzar){
-	    	
+        }
 	    	contadorPregunta = contadorPregunta+1;
-	    	
-	    	if(contadorPregunta < 14){
-	    		//REVISAR PARA PODER COMPARAR LAS RESPUESTAS
-	    		for(String q:respuestas){//hice el cambio de contenido a repuestas
-	    			renglonR=renglonR+1;
-					if(renglonR==preguntaRandom[preguntaRandom[contadorPregunta]]){
-						System.out.println(q);//print para ver que se ejecutara bien el boton, REVISAR QUE SOLO DESPLIEGA 12 PREGUNTAS y se salta la primera
-						//al momento de escibir
-
-	    				if(txtRespuesta.getText() == q){
-
-	    					puntos = puntos + 1;
-
-	    				}
-            		
-					} 
-        		}       
-
-	    	}else{
-	    			VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos);
-	    			dispose();
-	    		}
-
 	    	txtRespuesta.setText("");	
 
 	    }
+
+	    	if(contadorPregunta > 0){
+
+        			for(String q:respuestas){
+
+	        		renglonR=renglonR+1;
+
+					if(renglonR==respuestaRandom[respuestaRandom[contadorPregunta-1]]){
+
+					System.out.println("Pregunta: "+q);
+					System.out.println("Respuesta: "+respuesta);
+
+	    			if(respuesta.equalsIgnoreCase(q)){
+
+	    			puntos = puntos + 1;
+	    			System.out.println("Son iguales");
+
+	    			}
+				}
+					
+        	}
+        } 
 	}
 }
