@@ -28,9 +28,11 @@ class QuizSolo extends JFrame implements ActionListener{
 	private String respuesta;
 	private int puntos;
 
-	private int i = 0, canQ = 10, rango = 31;
-    private int[] preguntaRandom = new int[canQ+1];
-    private int[] respuestaRandom = new int[canQ+1];
+	private int i = 0;
+	private int canQ = 10;
+	private int rango = 31;
+    private int[] preguntaRandom = new int[canQ];
+    private int[] respuestaRandom = new int[canQ];
 
  	private int contadorP = 0;
 
@@ -138,10 +140,10 @@ class QuizSolo extends JFrame implements ActionListener{
 
 	private void crearPreguntas(){
 
-       preguntaRandom[i] = (int)(Math.random()*rango);
+       preguntaRandom[i] = (int)(Math.random()*rango+1);
        for(i = 0; i < canQ; i++){
 
-          preguntaRandom[i] = (int)(Math.random()*canQ);
+          preguntaRandom[i] = (int)(Math.random()*rango+1);
           
           for(int j=0; j<i; j++)
           {
@@ -151,6 +153,10 @@ class QuizSolo extends JFrame implements ActionListener{
             }
           }
        	}
+       	 for(int k=0; k<canQ; k++)
+        {
+          System.out.println(preguntaRandom[k]);
+        }
 
        	respuestaRandom = preguntaRandom; 
     }
@@ -169,7 +175,7 @@ class QuizSolo extends JFrame implements ActionListener{
 
     		renglon=renglon+1;
 
-    		if(renglon==preguntaRandom[preguntaRandom[contadorP]]){
+    		if(renglon==preguntaRandom[contadorP]){
 
     			try{
 						iPregunta = new ImageIcon ("./imagenes/Preguntas/"+p);
@@ -186,7 +192,7 @@ class QuizSolo extends JFrame implements ActionListener{
 
     		renglonR = renglonR + 1;
 
-    		if(renglonR==respuestaRandom[respuestaRandom[contadorP-1]]){
+    		if(renglonR==respuestaRandom[contadorP-1]){
     			System.out.println("Pregunta: "+q);
 				System.out.println("Respuesta: "+respuesta);
 
