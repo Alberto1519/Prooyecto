@@ -28,12 +28,11 @@ class QuizSolo extends JFrame implements ActionListener{
 	private String respuesta;
 	private int puntos;
 
-	private int cantidadPreguntas=14;
-    private int preguntaRandom[] = new int [cantidadPreguntas+1]; // Lista de numeros random 
-    private int respuestaRandom[] = new int [cantidadPreguntas+1]; // Lista de numeros random 
- 	private int contadorPregunta=0;
- 	private ArrayList<String>contenido = new ArrayList<String>();
- 	private ArrayList<String>respuestas = new ArrayList<String>();
+	private int i = 0, canQ = 10, rango = 31;
+    private int[] preguntaRandom = new int[canQ+1];
+    private int[] respuestaRandom = new int[canQ+1];
+
+ 	private int contadorP = 0;
 
 	public QuizSolo(String usuario){
 
@@ -55,6 +54,7 @@ class QuizSolo extends JFrame implements ActionListener{
 		colocarFondo();
 		colocarEtiquetas();
 		colocarBotones();
+		crearPreguntas();
 	}
 
 	private void colocarFondo(){
@@ -138,16 +138,11 @@ class QuizSolo extends JFrame implements ActionListener{
 
 	private void crearPreguntas(){
 
-		//Seleccion de la pregunta
-     	contenido = Archivo.leerTodo("preguntas.txt");
-      	respuestas = Archivo.leerTodo("respuestas.txt");
-      
-      	int i=0;
-     	int k=0;
-            
-       for(i=0; i < cantidadPreguntas; i++) 
-        {
-          preguntaRandom[i] = (int)(Math.random()*cantidadPreguntas);
+       preguntaRandom[i] = (int)(Math.random()*rango);
+       for(i = 0; i < canQ; i++){
+
+          preguntaRandom[i] = (int)(Math.random()*canQ);
+          
           for(int j=0; j<i; j++)
           {
             if(preguntaRandom[i]==preguntaRandom[j])
@@ -155,74 +150,45 @@ class QuizSolo extends JFrame implements ActionListener{
               i--;
             }
           }
-        }
+       	}
 
-        respuestaRandom = preguntaRandom;
-      }
+       	respuestaRandom = preguntaRandom; 
+    }
 
 	//Escuchar las opciones
 	public void actionPerformed(ActionEvent event){
 
 		ArrayList<String>contenido = new ArrayList<String>();
     	contenido = Archivo.leerTodo("preguntas.txt");
-      	ArrayList<String>respuestas = new ArrayList<String>();
-      	respuestas = Archivo.leerTodo("respuestas.txt");
-    	int renglon = 0;
-    	int renglonR = 0;//renglon excluisvo para las respuestas, ya que no servia bien el otro dentro del if de repuestas
+      	
+    	int renglon=0;
     	String respuesta = txtRespuesta.getText().toUpperCase();
+    	
+		if(event.getSource() == this.btnAvanzar){
 
-    	crearPreguntas();
-
-    	if(contadorPregunta > 13){
+			if(contadorP >= 10){
 	    		
 	    		VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos);
 	    		dispose();
 	    	}
 
-    	//Revisar las respuestas
-	    if(event.getSource() == this.btnAvanzar){
-
-	    	//Cambiar la preguntas
-      		for(String p:contenido){
+	    	for(String p:contenido){
         		
         		renglon=renglon+1;
 
-       		if(renglon==preguntaRandom[preguntaRandom[contadorPregunta]]){
-            	
-	            	try{
-						iPregunta = new ImageIcon ("./imagenes/Preguntas/"+p);
-						jlPregunta.setIcon(new ImageIcon(iPregunta.getImage().getScaledInstance(jlPregunta.getWidth(),jlPregunta.getHeight(),Image.SCALE_SMOOTH)));
-						jlPregunta.setHorizontalAlignment(SwingConstants.CENTER);
-					}catch(Exception e){
+       			if(renglon == preguntaRandom[preguntaRandom[contadorP]]){
+		            	try{
+							iPregunta = new ImageIcon ("./imagenes/Preguntas/"+p);
+							jlPregunta.setIcon(new ImageIcon(iPregunta.getImage().getScaledInstance(jlPregunta.getWidth(),jlPregunta.getHeight(),Image.SCALE_SMOOTH)));
+							jlPregunta.setHorizontalAlignment(SwingConstants.CENTER);
+						}catch(Exception e){
 						System.out.println("Error al cargar imagen.");
-				}	
+					}	
+        		}
         	}
-        }
-	    	contadorPregunta = contadorPregunta+1;
-	    	txtRespuesta.setText("");	
 
-	    }
-
-	    	if(contadorPregunta > 0){
-
-        			for(String q:respuestas){
-
-	        		renglonR=renglonR+1;
-
-					if(renglonR==respuestaRandom[respuestaRandom[contadorPregunta-1]]){
-
-					System.out.println("Pregunta: "+q);
-					System.out.println("Respuesta: "+respuesta);
-
-	    			if(respuesta.equalsIgnoreCase(q)){
-
-	    			puntos = puntos + 1;
-	    			System.out.println("Son iguales");
-
-	    			}
-				}
-					
-        	}
-        } 
+        	contadorP = contadorP+1;
+	    	txtRespuesta.setText("");
+		}
 	}
 }
