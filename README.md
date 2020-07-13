@@ -6,5 +6,6 @@ Al ingresar al juego te pedira un nombre de usuario, para despues desplegar un m
 ## UML
 ![](imagenes/UML.png)
 ## Preview
+![](imagenes/preview1.png)
 ## Demo
 El demo se encuentra anexado en el moodle.
