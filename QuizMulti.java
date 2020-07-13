@@ -162,7 +162,7 @@ class QuizMulti extends JFrame{
 
             ms.StopPlaying();
 
-            VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos);
+            VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos,0);
             dispose();
         }
         

@@ -214,7 +214,7 @@ class QuizSolo extends JFrame implements ActionListener{
 
 				if(contadorP >= 10){
 	    		
-	    			VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos);
+	    			VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos,1);
 	    			dispose();
 	    		}
 

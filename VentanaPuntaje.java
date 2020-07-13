@@ -34,15 +34,18 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 
 	private int puntos;
 	private String usuario;
+	private int mood;
 
 	private String puntosSt;
 
-	public VentanaPuntaje(String usuario,int puntos)
+	public VentanaPuntaje(String usuario,int puntos,int mood)
 	{
 		this.puntos = puntos;
 		puntosSt = String.valueOf(puntos);
 
 		this.usuario = usuario;
+
+		this.mood = mood;
 
 		puntajes = new ArrayList<String>();
 
@@ -192,7 +195,11 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 			sn.finalizar();
 
 			dispose();
-			QuizSolo qZ = new QuizSolo(usuario);
+			if(mood == 1){
+				QuizSolo qZ = new QuizSolo(usuario);
+			}else{
+				QuizMulti qM = new QuizMulti(usuario);
+			}
 		}
 
 		if(event.getSource() == this.btnMenu){
