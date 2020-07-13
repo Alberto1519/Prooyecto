@@ -23,6 +23,8 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 	private ImageIcon iMenu;
 	private JButton btnMenu;
 
+	private Sonido sn = new Sonido();
+
 	//Area del puntaje
 	private JTextArea txaPuntajesTotales;
 	private ArrayList <String> puntajes;
@@ -184,11 +186,21 @@ class VentanaPuntaje extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent event){
 
 		if(event.getSource() == this.btnReiniciar){
+			
+			sn.iniciar();
+			sn.reproducir(68,1,200);
+			sn.finalizar();
+
 			dispose();
 			QuizSolo qZ = new QuizSolo(usuario);
 		}
 
 		if(event.getSource() == this.btnMenu){
+
+			sn.iniciar();
+			sn.reproducir(68,1,200);
+			sn.finalizar();
+
 			dispose();
 			VentanaPrincipal vP = new VentanaPrincipal(usuario);
 		}

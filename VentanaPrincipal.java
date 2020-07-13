@@ -25,6 +25,7 @@ class VentanaPrincipal extends JFrame implements ActionListener{
 
 	private ImageIcon iMulti;
 	private JButton btnMulti;
+	private Sonido sn = new Sonido();
 
 	private String usuario;
 
@@ -109,7 +110,7 @@ class VentanaPrincipal extends JFrame implements ActionListener{
 		try{
 			iSolitario = new ImageIcon("./imagenes/single.png");
 			btnSolitario = new JButton();
-			btnSolitario.setBounds(140,255,254,180); //(x, y, w, h)
+			btnSolitario.setBounds(160,255,254,180); //(x, y, w, h)
 			btnSolitario.setIcon(new ImageIcon(iSolitario.getImage().getScaledInstance(btnSolitario.getWidth(),btnSolitario.getHeight(),Image.SCALE_SMOOTH)));
 			btnSolitario.setOpaque(false);
 			btnSolitario.setContentAreaFilled(false);
@@ -122,7 +123,7 @@ class VentanaPrincipal extends JFrame implements ActionListener{
 		try{
 			iMulti = new ImageIcon("./imagenes/multiplayer.png");
 			btnMulti = new JButton();
-			btnMulti.setBounds(530,265,354,220); //(x, y, w, h)
+			btnMulti.setBounds(560,255,275,178); //(x, y, w, h)
 			btnMulti.setIcon(new ImageIcon(iMulti.getImage().getScaledInstance(btnMulti.getWidth(),btnMulti.getHeight(),Image.SCALE_SMOOTH)));
 			btnMulti.setOpaque(false);
 			btnMulti.setContentAreaFilled(false);
@@ -146,16 +147,18 @@ class VentanaPrincipal extends JFrame implements ActionListener{
 
 		if(event.getSource() == this.btnSolitario)
 		{
-			dispose();
 			ms.StopPlaying();
+
+			dispose();
 			QuizSolo qS = new QuizSolo(usuario);
 		}
 
 		if(event.getSource() == this.btnMulti)
 		{
-			QuizMulti qM = new QuizMulti(usuario);
-			dispose();
 			ms.StopPlaying();
+
+			dispose();
+			QuizMulti qM = new QuizMulti(usuario);
 		}
 	}
 }	

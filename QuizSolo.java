@@ -24,6 +24,8 @@ class QuizSolo extends JFrame implements ActionListener{
 	private ImageIcon iAvanzar;
 	private JButton btnAvanzar;
 
+	private Sonido sn = new Sonido();
+
 	private String usuario;
 	private String respuesta;
 	private int puntos;
@@ -203,6 +205,10 @@ class QuizSolo extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent event){
 
 		if(event.getSource() == this.btnAvanzar){
+
+			sn.iniciar();
+			sn.reproducir(50,1,200);
+			sn.finalizar();
 
 			String respuesta = txtRespuesta.getText().toUpperCase();
 
