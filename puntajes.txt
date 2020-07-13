@@ -35,3 +35,7 @@ Usuario123   3 pts   Sun Jul 12 13:33:28 PDT 2020
 Usuario123   0 pts   Sun Jul 12 13:39:56 PDT 2020
 Usuario123   0 pts   Sun Jul 12 13:40:53 PDT 2020
 Hola   0 pts   Sun Jul 12 13:41:44 PDT 2020
+Usuario123   0 pts   Sun Jul 12 16:13:21 PDT 2020
+Usuario123   0 pts   Sun Jul 12 16:19:22 PDT 2020
+Usuario123   0 pts   Sun Jul 12 16:21:43 PDT 2020
+Usuario123   0 pts   Sun Jul 12 19:14:01 PDT 2020

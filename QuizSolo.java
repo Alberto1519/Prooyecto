@@ -31,8 +31,8 @@ class QuizSolo extends JFrame implements ActionListener{
 	private int i = 0;
 	private int canQ = 10;
 	private int rango = 31;
-    private int[] preguntaRandom = new int[canQ];
-    private int[] respuestaRandom = new int[canQ];
+    private int[] preguntaRandom = new int[canQ+1];
+    private int[] respuestaRandom = new int[canQ+1];
 
  	private int contadorP = 0;
 
@@ -153,11 +153,7 @@ class QuizSolo extends JFrame implements ActionListener{
             }
           }
        	}
-       	 for(int k=0; k<canQ; k++)
-        {
-          System.out.println(preguntaRandom[k]);
-        }
-
+       	
        	respuestaRandom = preguntaRandom; 
     }
 
@@ -193,13 +189,10 @@ class QuizSolo extends JFrame implements ActionListener{
     		renglonR = renglonR + 1;
 
     		if(renglonR==respuestaRandom[contadorP-1]){
-    			System.out.println("Pregunta: "+q);
-				System.out.println("Respuesta: "+respuesta);
-
+    			
 				if(respuesta.equalsIgnoreCase(q)){
 
 	    			puntos = puntos + 1;
-	    			System.out.println("Son iguales");
 	    		}
     		}
     	}
