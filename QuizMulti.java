@@ -38,8 +38,13 @@ class QuizMulti extends JFrame{
     private Timer timerC = new Timer();
 
     private int inTiempo = 5;
+
+    private Musica ms;
    
     public QuizMulti(String usuario){
+
+        ms = new Musica("./musica/videoplayback.wav");
+        ms.playMusic();
         
         this.usuario = usuario;
         this.setTitle("QUIZ TIEMPO");
@@ -154,6 +159,8 @@ class QuizMulti extends JFrame{
 
             timer.cancel();
             timerC.cancel();
+
+            ms.StopPlaying();
 
             VentanaPuntaje vP = new VentanaPuntaje(usuario,puntos);
             dispose();
