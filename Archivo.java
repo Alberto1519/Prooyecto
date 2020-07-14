@@ -1,8 +1,9 @@
+package Paquetes.Metodos;
+
 import java.io.*;
 import java.util.*;
 import java.util.Date;
-
-class Archivo{
+public class Archivo{
     
     public static ArrayList<String> leerTodo(String nombreArchivo){
             String strLine = new String();

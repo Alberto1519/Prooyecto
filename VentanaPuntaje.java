@@ -6,6 +6,9 @@ import java.awt.image.*;
 import javax.imageio.*;
 import java.awt.event.*;
 
+import Paquetes.Metodos.Sonido;
+import Paquetes.Metodos.Archivo;
+
 class VentanaPuntaje extends JFrame implements ActionListener{
 
 	private JLayeredPane panel;

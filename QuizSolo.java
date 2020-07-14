@@ -6,7 +6,10 @@ import javax.imageio.*;
 import java.awt.event.*;
 import java.util.*;
 
-class QuizSolo extends JFrame implements ActionListener{
+import Paquetes.Metodos.Sonido;
+import Paquetes.Metodos.Archivo;
+
+public class QuizSolo extends JFrame implements ActionListener{
 
 	private JLayeredPane panel;
 

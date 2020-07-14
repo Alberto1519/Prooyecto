@@ -5,6 +5,8 @@ import java.io.*;
 import javax.imageio.*;
 import java.awt.event.*;
 
+import Paquetes.Metodos.Musica;
+
 class VentanaPrincipal extends JFrame implements ActionListener{
 
 	private JLayeredPane panel;
@@ -25,7 +27,6 @@ class VentanaPrincipal extends JFrame implements ActionListener{
 
 	private ImageIcon iMulti;
 	private JButton btnMulti;
-	private Sonido sn = new Sonido();
 
 	private String usuario;
 

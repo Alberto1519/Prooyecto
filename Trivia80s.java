@@ -6,6 +6,8 @@ import javax.imageio.*;
 import java.awt.event.*;
 import java.util.*;
 
+import Paquetes.Metodos.Musica;
+
 class Trivia80s extends JFrame implements ActionListener{
 
 	//Atributos de la Ventna

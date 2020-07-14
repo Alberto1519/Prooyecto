@@ -9,6 +9,9 @@ import java.util.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Paquetes.Metodos.Musica;
+import Paquetes.Metodos.Archivo;
+
 class QuizMulti extends JFrame{
     
     private JLayeredPane panel;

@@ -56,3 +56,6 @@ Usuario123   0 pts   Mon Jul 13 03:12:29 PDT 2020
 Usuario123   8 pts   Mon Jul 13 03:38:24 PDT 2020
 Usuario123   4 pts   Mon Jul 13 03:43:45 PDT 2020
 Usuario123   0 pts   Mon Jul 13 04:00:56 PDT 2020
+Usuario123   0 pts   Mon Jul 13 16:50:48 PDT 2020
+Usuario12   0 pts   Mon Jul 13 18:51:18 PDT 2020
+Usuario12   6 pts   Mon Jul 13 18:52:28 PDT 2020
