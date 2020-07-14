@@ -9,3 +9,5 @@ Al ingresar al juego te pedira un nombre de usuario, para despues desplegar un m
 ![](imagenes/preview1.png)
 ## Demo
 El demo se encuentra anexado en el moodle.
+## Realizado por:
+Alberto Velazco y Antonio Torres
